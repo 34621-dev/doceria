@@ -4,13 +4,7 @@
  */
 
 // Configuração da URL da API (flexível para execução local, Vercel ou Live Server)
-// Detecta se está rodando fora do servidor Express (file:// ou Live Server em porta diferente)
-const isServidoLocalmente = window.location.port === '3000' || window.location.port === '3001';
-const isAcessoExterno = window.location.protocol === 'file:' || 
-  (window.location.hostname === 'localhost' && !isServidoLocalmente) ||
-  (window.location.hostname === '127.0.0.1' && !isServidoLocalmente);
-
-const API_URL = isAcessoExterno
+const API_URL = (window.location.protocol === 'file:' || (window.location.hostname === 'localhost' && window.location.port !== '3000'))
   ? 'http://localhost:3000/api/doces'
   : '/api/doces';
 
@@ -260,9 +254,8 @@ function renderizarDoces() {
 
   const docesFiltrados = state.doces.filter(doce => {
     // Filtro por Tipo
-    const tiposConhecidos = ['Bolo', 'Torta', 'Brigadeiro', 'Cupcake', 'Docinho', 'Sobremesa'];
     const matchTipo = (state.filtroTipo === 'todos') ||
-      (state.filtroTipo === 'Outros' && !tiposConhecidos.includes(doce.tipo)) ||
+      (state.filtroTipo === 'Outros' && !['Bolo', 'Torta', 'Brigadeiro', 'Cupcake'].includes(doce.tipo)) ||
       (doce.tipo === state.filtroTipo);
 
     // Filtro por Nome (Busca)
