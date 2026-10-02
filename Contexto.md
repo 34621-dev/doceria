@@ -30,7 +30,7 @@ O **Doceria System** é uma aplicação web full stack projetada como um sistema
   - 100% de aprovação (0 falhas).
 - **Estrutura de Arquivos Final**:
   ```text
-  doceria-system/
+  doceria/
   ├── backend/
   │   ├── api/
   │   │   └── index.js          # Ponto de entrada para Serverless Function na Vercel
@@ -43,8 +43,7 @@ O **Doceria System** é uma aplicação web full stack projetada como um sistema
   │   │   └── server.js         # Inicialização do servidor local
   │   ├── tests/
   │   │   └── api.test.js       # Testes automatizados com MongoMemoryServer e Supertest
-  │   ├── .env.example          # Exemplo de variáveis de ambiente
-  │   ├── .env                  # Configurações de desenvolvimento local
+  │   ├── .env                  # Configurações de desenvolvimento local (não commitado)
   │   ├── package.json          # Dependências e scripts
   │   └── vercel.json           # Configuração de rotas da Vercel
   ├── frontend/
@@ -62,7 +61,7 @@ O **Doceria System** é uma aplicação web full stack projetada como um sistema
 
 ### Como rodar os testes automatizados
 ```bash
-cd doceria-system/backend
+cd backend
 npm test
 ```
 
@@ -74,7 +73,7 @@ npm test
    ```
 2. Inicie o servidor:
    ```bash
-   cd doceria-system/backend
+   cd backend
    npm start
    ```
 3. Acesse no navegador:
@@ -85,3 +84,4 @@ npm test
 1. Instale a Vercel CLI ou conecte o repositório GitHub à Vercel.
 2. Defina a variável de ambiente `MONGODB_URI` nas configurações de projeto da Vercel (`Project Settings` > `Environment Variables`).
 3. O arquivo `vercel.json` e `api/index.js` já estão configurados para redirecionar as chamadas para a Serverless Function do Express.
+

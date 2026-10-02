@@ -10,8 +10,12 @@ const doceRoutes = require('./routes/doceRoutes');
 const app = express();
 
 // Middlewares
+const corsOrigin = process.env.NODE_ENV === 'production' && process.env.CORS_ORIGIN
+  ? process.env.CORS_ORIGIN
+  : '*';
+
 app.use(cors({
-  origin: '*',
+  origin: corsOrigin,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
@@ -41,6 +45,15 @@ app.use('/api/doces', doceRoutes);
 app.use((req, res) => {
   res.status(404).json({
     erro: `A rota '${req.originalUrl}' não foi encontrada na API.`
+  });
+});
+
+// Middleware global de tratamento de erros
+app.use((err, req, res, _next) => {
+  console.error('Erro não tratado:', err);
+  res.status(err.status || 500).json({
+    erro: 'Erro interno do servidor.',
+    detalhes: process.env.NODE_ENV !== 'production' ? err.message : undefined
   });
 });
 
